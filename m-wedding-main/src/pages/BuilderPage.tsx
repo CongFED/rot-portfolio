@@ -23,7 +23,7 @@ import heroWedding from "@/assets/hero-wedding.jpg";
 import { getRegistryTemplate, NEW_TEMPLATE_OPTIONS } from "@/components/templates";
 
 // ─── Types ───────────────────────────────────────────────────
-type TemplateStyle = "classic" | "modern" | "minimal" | "romantic" | "rustic" | "luxury" | "classic-elegant" | "luxury-dark" | "garden-floral" | "modern-minimal";
+type TemplateStyle = "classic" | "modern" | "minimal" | "romantic" | "rustic" | "luxury" | "classic-elegant" | "luxury-dark" | "garden-floral" | "modern-minimal" | "luxury-green";
 
 interface InvitationData {
   couple: { brideName: string; groomName: string; hashtag: string; message: string };

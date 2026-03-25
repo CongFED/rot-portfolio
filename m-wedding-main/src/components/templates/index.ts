@@ -16,6 +16,7 @@ import * as ClassicElegant from "./ClassicElegantTemplate";
 import * as LuxuryDark from "./LuxuryDarkTemplate";
 import * as GardenFloral from "./GardenFloralTemplate";
 import * as ModernMinimal from "./ModernMinimalTemplate";
+import * as LuxuryGreen from "./LuxuryGreenTemplate";
 
 /* ─── Types ───────────────────────────────────────── */
 export interface TemplatePreviewProps {
@@ -74,6 +75,14 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     InvitationHero: ModernMinimal.InvitationHero,
     pageStyle: ModernMinimal.pageStyle,
   },
+  "luxury-green": {
+    id: "luxury-green",
+    label: "Luxury Green",
+    desc: "Xanh emerald sang trọng, gold accent, script font, phong cách premium",
+    PreviewCard: LuxuryGreen.PreviewCard,
+    InvitationHero: LuxuryGreen.InvitationHero,
+    pageStyle: LuxuryGreen.pageStyle,
+  },
 };
 
 /**
@@ -93,4 +102,5 @@ export const NEW_TEMPLATE_OPTIONS: { id: TemplateStyle; label: string; desc: str
   { id: "luxury-dark", label: "Sang trọng tối", desc: "Nền đen sang trọng, vàng champagne, cảm giác premium" },
   { id: "garden-floral", label: "Sân vườn hoa lá", desc: "Tông sage xanh lá nhẹ, ảnh tròn, trang trí lá hoa" },
   { id: "modern-minimal", label: "Hiện đại tối giản", desc: "Chia đôi ảnh – chữ, typography lớn, khoảng trắng nhiều" },
+  { id: "luxury-green", label: "Luxury Green", desc: "Xanh emerald sang trọng, gold accent, script font, phong cách premium" },
 ];

@@ -2,7 +2,7 @@
 
 export type TemplateStyle =
   | "classic" | "modern" | "minimal" | "romantic" | "rustic" | "luxury"
-  | "classic-elegant" | "luxury-dark" | "garden-floral" | "modern-minimal";
+  | "classic-elegant" | "luxury-dark" | "garden-floral" | "modern-minimal" | "luxury-green";
 
 export interface InvitationData {
   couple: { brideName: string; groomName: string; hashtag: string; message: string };
