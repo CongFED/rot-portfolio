@@ -1,0 +1,411 @@
+/* ═══════════════════════════════════════════════════════════
+   DUCO – Soft Pink Pastel Wedding Design System
+   Font: Quicksand (rounded sans-serif, feminine, modern)
+   Style: Minimalist · Soft pink · Clean · Feminine · Modern
+   Primary: #ed8383 · Background: #fff3f3
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ─────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Core pink pastel palette */
+    --background: 0 100% 98%;
+    /* #fff3f3 */
+    --foreground: 0 30% 40%;
+    /* #8b6b6b – body text */
+
+    --card: 0 0% 100%;
+    /* #ffffff */
+    --card-foreground: 0 30% 40%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 30% 40%;
+
+    --primary: 0 75% 72%;
+    /* #ed8383 */
+    --primary-foreground: 0 0% 100%;
+    /* white */
+
+    --secondary: 0 60% 95%;
+    /* #fce4e4 – soft pink bg */
+    --secondary-foreground: 0 30% 40%;
+
+    --muted: 0 40% 95%;
+    /* muted bg */
+    --muted-foreground: 0 15% 65%;
+    /* #c4a3a3 – text phụ */
+
+    --accent: 0 75% 72%;
+    /* = primary #ed8383 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 50% 90%;
+    /* #f5d5d5 – border nhẹ */
+    --input: 0 50% 90%;
+    --ring: 0 75% 72%;
+    /* ring = primary */
+
+    --radius: 0.625rem;
+
+    /* ── Extended Wedding Color Tokens ── */
+    --color-primary: #ed8383;
+    --color-primary-hover: #e67272;
+    --color-primary-soft: #f5b0b0;
+    --color-bg: #fff3f3;
+    --color-bg-soft: #ffeaea;
+    --color-surface: #ffffff;
+    --color-text-main: #ed8383;
+    --color-text-heading: #c96b6b;
+    --color-text-body: #8b6b6b;
+    --color-text-muted: #c4a3a3;
+    --color-border: #f5d5d5;
+    --color-card: #ffffff;
+    --color-button-text: #ffffff;
+    --color-link: #ed8383;
+    --color-accent-light: #fce4e4;
+    --color-gold: #daa67b;
+
+    /* Backward Compat Tokens (mapped to new palette) */
+    --peach: 0 75% 72%;
+    /* → mapped to primary */
+    --peach-light: 0 60% 93%;
+    --peach-deep: 0 65% 68%;
+    /* → deeper pink */
+
+    --rose: 0 60% 85%;
+    --blush: 0 50% 93%;
+
+    --sage: 0 20% 80%;
+    /* neutralized sage → pink-gray */
+    --sage-light: 0 15% 92%;
+    --sage-deep: 0 15% 65%;
+
+    --ivory: 0 100% 98%;
+    /* = background */
+    --cream: 0 40% 96%;
+    --cream-warm: 0 55% 96%;
+    /* soft pink bg alt */
+    --bronze: 0 30% 40%;
+    /* = foreground */
+
+    --gold: 25 50% 67%;
+    /* warm gold softened */
+    --champagne: 0 75% 72%;
+    /* → mapped to primary pink */
+    --champagne-light: 0 60% 93%;
+    --dusty-rose: 0 40% 72%;
+
+    /* ── Gradients ── */
+    --gradient-warm: linear-gradient(135deg, #f5b0b0 0%, #fce4e4 100%);
+    --gradient-subtle: linear-gradient(180deg, #fff3f3 0%, #ffeaea 100%);
+    --gradient-hero: radial-gradient(ellipse at 70% 50%, rgba(237, 131, 131, 0.1) 0%, transparent 60%);
+    --gradient-section: linear-gradient(180deg, transparent 0%, rgba(252, 228, 228, 0.4) 50%, transparent 100%);
+
+    /* ── Shadows – pink toned ── */
+    --shadow-soft: 0 4px 20px -4px rgba(237, 131, 131, 0.1);
+    --shadow-elevated: 0 12px 40px -8px rgba(237, 131, 131, 0.12);
+    --shadow-card: 0 2px 8px rgba(237, 131, 131, 0.04), 0 8px 24px rgba(237, 131, 131, 0.06);
+    --shadow-glow: 0 0 60px rgba(237, 131, 131, 0.1);
+    --shadow-inner: inset 0 1px 2px rgba(237, 131, 131, 0.04);
+
+    /* ── Sidebar ── */
+    --sidebar-background: 0 60% 98%;
+    --sidebar-foreground: 0 30% 40%;
+    --sidebar-primary: 0 75% 72%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 60% 95%;
+    --sidebar-accent-foreground: 0 30% 40%;
+    --sidebar-border: 0 50% 93%;
+    --sidebar-ring: 0 75% 72%;
+  }
+}
+
+/* ─── Base Styles ────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Quicksand', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    color: var(--color-text-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    color: var(--color-text-heading);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+  }
+
+  ::selection {
+    background: rgba(237, 131, 131, 0.2);
+    color: var(--color-text-heading);
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(237, 131, 131, 0.25);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(237, 131, 131, 0.45);
+  }
+}
+
+/* ─── Component Classes ─────────────────────────────────── */
+@layer components {
+
+  /* Typography */
+  .font-display {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    font-weight: 600;
+  }
+
+  .font-body {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    font-weight: 400;
+  }
+
+  /* Eyebrow / section label – #ed8383 */
+  .section-eyebrow {
+    @apply font-body text-[0.72rem] font-semibold tracking-[0.2em] uppercase;
+    color: var(--color-primary);
+  }
+
+  /* Layout */
+  .section-spacing {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .container-wide {
+    @apply max-w-6xl mx-auto px-5 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-3xl mx-auto px-5 sm:px-6;
+  }
+
+  /* Cards */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border;
+    border-color: rgba(245, 213, 213, 0.3);
+    box-shadow: var(--shadow-card);
+  }
+
+  .premium-card {
+    @apply bg-white border transition-all duration-500;
+    border-color: rgba(245, 213, 213, 0.3);
+    box-shadow: var(--shadow-card);
+  }
+
+  .premium-card:hover {
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+    border-color: rgba(237, 131, 131, 0.25);
+  }
+
+  /* Text effects */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-text-heading) 0%, var(--color-primary) 60%, var(--color-primary-soft) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover lift */
+  .hover-lift {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Decorative elements */
+  .decorative-dot {
+    @apply w-1 h-1 rounded-full;
+    background: var(--color-primary);
+  }
+
+  .decorative-line {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  }
+
+  .decorative-divider {
+    @apply flex items-center justify-center gap-3 my-6;
+  }
+
+  .decorative-divider::before,
+  .decorative-divider::after {
+    content: '';
+    @apply h-px flex-1 max-w-[80px];
+    background: linear-gradient(90deg, transparent, rgba(237, 131, 131, 0.3));
+  }
+
+  .decorative-divider::after {
+    background: linear-gradient(90deg, rgba(237, 131, 131, 0.3), transparent);
+  }
+
+  /* Section backgrounds */
+  .section-alt {
+    background: var(--gradient-section);
+  }
+
+  /* Image styling */
+  .image-elegant {
+    @apply overflow-hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .image-elegant img {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+  }
+
+  .image-elegant:hover img {
+    transform: scale(1.03);
+  }
+
+  /* SVG decorative ornaments */
+  .ornament {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.1;
+  }
+
+  .ornament-peach {
+    fill: var(--color-primary);
+  }
+
+  .ornament-sage {
+    fill: var(--color-primary-soft);
+  }
+
+  .ornament-rose {
+    fill: var(--color-primary);
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.7s ease-out forwards;
+  }
+
+  .animate-reveal {
+    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* ─── Custom Animations ──────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float-gentle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
