@@ -51,7 +51,7 @@ const HeroSection = () => {
               Thiết kế thiệp cưới online đẹp mắt, chia sẻ dễ dàng qua link hoặc QR code. Thu thập RSVP và lời chúc tự động.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 max-h-[40px]">
               <Button
                 className="rounded-full px-8 py-6 h-auto text-[0.9rem] font-semibold flex items-center gap-3 transition-transform hover:-translate-y-1 group"
                 style={{
@@ -63,7 +63,7 @@ const HeroSection = () => {
               >
                 <Link to="/templates">
                   Bắt đầu thiết kế
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-2 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
               <Button

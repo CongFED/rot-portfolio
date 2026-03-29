@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import InvitationGuide from "@/components/dashboard/InvitationGuide";
 
 const sidebarLinks = [
   { label: "Tổng quan", icon: LayoutDashboard, href: "/dashboard", active: true },
@@ -143,7 +144,7 @@ const DashboardPage = () => {
             <p className="font-body text-xs font-light" style={{ color: 'var(--color-text-muted)' }}>Chào mừng bạn trở lại</p>
           </div>
           <Button variant="cta" size="sm" className="rounded-xl" asChild>
-            <Link to="/builder" className="flex items-center gap-2">
+            <Link to="/templates" className="flex items-center gap-2">
               <Plus className="h-4 w-4" />
               Tạo thiệp mới
             </Link>
@@ -191,7 +192,7 @@ const DashboardPage = () => {
             <h2 className="font-display text-lg mb-4" style={{ color: 'var(--color-text-heading)' }}>Hành động nhanh</h2>
             <div className="flex flex-wrap gap-3">
               <Button variant="cta" size="sm" className="rounded-xl" asChild>
-                <Link to="/builder">
+                <Link to="/templates">
                   <Plus className="h-4 w-4 mr-1.5" />
                   Tạo thiệp mới
                 </Link>
@@ -201,6 +202,11 @@ const DashboardPage = () => {
               </Button>
               <Button variant="cta-outline" size="sm" className="rounded-xl">Xuất danh sách khách</Button>
             </div>
+          </motion.div>
+
+          {/* Invitation Guide */}
+          <motion.div variants={itemVariants}>
+            <InvitationGuide />
           </motion.div>
 
           {/* Recent projects */}

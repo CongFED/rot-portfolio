@@ -80,7 +80,7 @@ const TemplateDetailPage = () => {
 
                 <div className="flex flex-col gap-3">
                   <Button variant="cta" size="lg" className="w-full rounded-xl" asChild>
-                    <Link to="/dashboard">Sử dụng mẫu này</Link>
+                    <Link to={`/builder?template=${tpl.builderTemplate}`}>Sử dụng mẫu này</Link>
                   </Button>
                   <Button variant="cta-outline" size="lg" className="w-full rounded-xl" asChild>
                     <Link to="/invitation">Xem bản demo</Link>

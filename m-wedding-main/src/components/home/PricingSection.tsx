@@ -7,27 +7,52 @@ const plans = [
   {
     name: "Miễn phí",
     price: "0",
-    desc: "Trải nghiệm cơ bản",
-    features: ["1 thiệp cưới", "Mẫu cơ bản", "RSVP cơ bản", "Chia sẻ qua link"],
+    desc: "Khởi đầu nhanh chóng với thiệp cưới online",
+    features: [
+      "Tạo 1 thiệp cưới",
+      "Mẫu giao diện cơ bản",
+      "RSVP đơn giản",
+      "Chia sẻ qua link",
+      "Hosting miễn phí"
+    ],
     cta: "Bắt đầu ngay",
     popular: false,
   },
   {
     name: "Premium",
     price: "299.000",
-    desc: "Trọn vẹn cho ngày đặc biệt",
+    desc: "Đầy đủ tính năng cho một thiệp cưới hoàn hảo",
     features: [
-      "Không giới hạn thiệp",
-      "Tất cả mẫu Premium",
-      "RSVP nâng cao",
-      "QR Code đẹp mắt",
-      "Tùy chỉnh font & màu",
-      "Gallery ảnh",
-      "Lời chúc & tường chúc",
-      "Hỗ trợ ưu tiên",
+      "Không giới hạn số lượng thiệp",
+      "Toàn bộ template Premium",
+      "RSVP nâng cao (quản lý khách mời)",
+      "QR Code check-in đẹp",
+      "Tùy chỉnh font & màu sắc",
+      "Gallery ảnh + video",
+      "Tường lời chúc (guestbook)",
+      "Hiệu ứng animation mượt",
+      "Hỗ trợ ưu tiên"
     ],
     cta: "Chọn Premium",
     popular: true,
+  },
+  {
+    name: "Luxury (Custom)",
+    price: "Liên hệ",
+    desc: "Thiết kế riêng đẳng cấp – không đụng hàng",
+    features: [
+      "Thiết kế theme hoàn toàn mới theo yêu cầu",
+      "UI/UX riêng biệt (không dùng template có sẵn)",
+      "Animation & hiệu ứng cao cấp",
+      "Cá nhân hóa theo câu chuyện cô dâu – chú rể",
+      "Tích hợp nhạc, timeline, map, video nâng cao",
+      "Tối ưu mobile & tốc độ cao",
+      "Hỗ trợ chỉnh sửa theo yêu cầu",
+      "Hỗ trợ 1-1 trong suốt quá trình",
+      "Ưu tiên xử lý & bảo trì"
+    ],
+    cta: "Liên hệ thiết kế riêng",
+    popular: false,
   },
 ];
 
@@ -45,15 +70,14 @@ const PricingSection = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6  mx-auto">
           {plans.map((plan, i) => (
             <AnimatedSection key={plan.name} delay={i * 0.12}>
               <div
-                className={`relative rounded-2xl p-8 md:p-10 h-full flex flex-col transition-all duration-500 ${
-                  plan.popular
-                    ? "shadow-[var(--shadow-elevated)]"
-                    : "border shadow-[var(--shadow-card)]"
-                }`}
+                className={`relative rounded-2xl p-8 md:p-10 h-full flex flex-col transition-all duration-500 ${plan.popular
+                  ? "shadow-[var(--shadow-elevated)]"
+                  : "border shadow-[var(--shadow-card)]"
+                  }`}
                 style={{
                   backgroundColor: plan.popular ? 'var(--color-primary)' : 'var(--color-surface)',
                   borderColor: plan.popular ? 'transparent' : 'var(--color-border)',

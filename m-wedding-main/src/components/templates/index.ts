@@ -17,6 +17,10 @@ import * as LuxuryDark from "./LuxuryDarkTemplate";
 import * as GardenFloral from "./GardenFloralTemplate";
 import * as ModernMinimal from "./ModernMinimalTemplate";
 import * as LuxuryGreen from "./LuxuryGreenTemplate";
+import * as RoyalEmerald from "./RoyalEmeraldTemplate";
+import * as RedTraditional from "./RedTraditionalTemplate";
+import * as RedDragonEnvelope from "./RedDragonEnvelopeTemplate";
+import * as GreenNature from "./GreenNatureTemplate";
 
 /* ─── Types ───────────────────────────────────────── */
 export interface TemplatePreviewProps {
@@ -38,6 +42,7 @@ export interface TemplateEntry {
   InvitationHero: FC<TemplateHeroProps>;
   pageStyle?: CSSProperties;
   isDark?: boolean;
+  isFullPage?: boolean;
 }
 
 /* ─── Registry ────────────────────────────────────── */
@@ -83,6 +88,40 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     InvitationHero: LuxuryGreen.InvitationHero,
     pageStyle: LuxuryGreen.pageStyle,
   },
+  "royal-emerald": {
+    id: "royal-emerald",
+    label: "Royal Emerald",
+    desc: "Xanh rừng sâu, vàng antique cổ điển, editorial typography, ultra-premium",
+    PreviewCard: RoyalEmerald.PreviewCard,
+    InvitationHero: RoyalEmerald.InvitationHero,
+    pageStyle: RoyalEmerald.pageStyle,
+  },
+  "red-traditional": {
+    id: "red-traditional",
+    label: "Truyền Thống Cổ Điển",
+    desc: "Đỏ đậm, song hỷ, hoa văn chim phượng phong cách Việt Nam, hiệu ứng mở vỏ thiệp mượt mà",
+    PreviewCard: RedTraditional.PreviewCard,
+    InvitationHero: RedTraditional.InvitationHero,
+    isFullPage: true,
+  },
+  "red-dragon-envelope": {
+    id: "red-dragon-envelope",
+    label: "Rồng Phượng Truyền Thống",
+    desc: "Đỏ rượu, rồng mây, song hỷ, hiệu ứng mở vỏ thiệp, phong cách cưới Á Đông premium",
+    PreviewCard: RedDragonEnvelope.PreviewCard,
+    InvitationHero: RedDragonEnvelope.InvitationHero,
+    pageStyle: RedDragonEnvelope.pageStyle,
+    isFullPage: true,
+  },
+  "green-nature": {
+    id: "green-nature",
+    label: "Green Nature",
+    desc: "Xanh lá thiên nhiên, botanical lá cây, hiệu ứng mở thiệp, editorial premium",
+    PreviewCard: GreenNature.PreviewCard,
+    InvitationHero: GreenNature.InvitationHero,
+    pageStyle: GreenNature.pageStyle,
+    isFullPage: true,
+  },
 };
 
 /**
@@ -103,4 +142,8 @@ export const NEW_TEMPLATE_OPTIONS: { id: TemplateStyle; label: string; desc: str
   { id: "garden-floral", label: "Sân vườn hoa lá", desc: "Tông sage xanh lá nhẹ, ảnh tròn, trang trí lá hoa" },
   { id: "modern-minimal", label: "Hiện đại tối giản", desc: "Chia đôi ảnh – chữ, typography lớn, khoảng trắng nhiều" },
   { id: "luxury-green", label: "Luxury Green", desc: "Xanh emerald sang trọng, gold accent, script font, phong cách premium" },
+  { id: "royal-emerald", label: "Royal Emerald", desc: "Xanh rừng sâu, vàng antique cổ điển, editorial typography, ultra-premium" },
+  { id: "red-traditional", label: "Truyền Thống Cổ Điển", desc: "Đỏ đậm, hoa văn truyền thống, hiệu ứng vỏ thiệp" },
+  { id: "red-dragon-envelope", label: "Rồng Phượng Truyền Thống", desc: "Đỏ rượu, rồng mây, song hỷ, hiệu ứng mở thiệp, cưới Á Đông premium" },
+  { id: "green-nature", label: "Green Nature", desc: "Xanh lá thiên nhiên, botanical lá cây, mở thiệp, premium" },
 ];

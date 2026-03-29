@@ -115,7 +115,7 @@ const TemplatesPage = () => {
                       <Link to={`/templates/${tpl.id}`}>Xem chi tiết</Link>
                     </Button>
                     <Button variant="cta-outline" size="sm" className="rounded-xl" asChild>
-                      <Link to="/dashboard">Sử dụng mẫu này</Link>
+                      <Link to={`/builder?template=${tpl.builderTemplate}`}>Chỉnh sửa mẫu này</Link>
                     </Button>
                   </div>
                 </div>

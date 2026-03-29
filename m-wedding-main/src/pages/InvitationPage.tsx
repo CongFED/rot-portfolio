@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { MapPin, Heart, Calendar, MessageSquare, Clock, Camera } from "lucide-react";
 import { toast } from "sonner";
 import { getRegistryTemplate } from "@/components/templates";
+import MusicPlayerFloating from "@/components/MusicPlayerFloating";
 
 interface InvitationData {
   couple: { brideName: string; groomName: string; hashtag: string; message: string };
@@ -38,7 +39,7 @@ const defaultInv: InvitationData = {
   wishes: { enabled: true, moderateBeforeShow: false },
   theme: { colorScheme: "champagne", borderRadius: 12, template: "classic" },
   fonts: { heading: "Prata", body: "Be Vietnam Pro" },
-  music: { enabled: false, url: "", autoplay: false },
+  music: { enabled: true, url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", autoplay: true },
   seo: { title: "Thiệp cưới Minh Anh & Đức Huy", description: "Kính mời quý khách đến dự lễ cưới của chúng tôi", ogImage: "" },
 };
 
@@ -298,7 +299,9 @@ const InvitationPage = () => {
         );
       })()}
 
-      {/* Countdown */}
+      {!getRegistryTemplate(tpl)?.isFullPage && (
+        <>
+          {/* Countdown */}
       <section className="section-spacing bg-secondary/30">
         <div className="container-wide text-center">
           <AnimatedSection>
@@ -579,9 +582,12 @@ const InvitationPage = () => {
         </p>
       </div>
 
-      {/* Background music */}
+        </>
+      )}
+
+      {/* Global Background Music Player */}
       {inv.music.enabled && inv.music.url && (
-        <audio src={inv.music.url} autoPlay={inv.music.autoplay} loop className="hidden" />
+        <MusicPlayerFloating musicUrl={inv.music.url} autoplay={inv.music.autoplay} />
       )}
     </div>
   );

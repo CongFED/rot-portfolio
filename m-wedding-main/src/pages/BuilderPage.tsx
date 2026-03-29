@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePayment } from "@/hooks/usePayment";
 import PaymentModal from "@/components/payment/PaymentModal";
@@ -20,10 +20,10 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import heroWedding from "@/assets/hero-wedding.jpg";
-import { getRegistryTemplate, NEW_TEMPLATE_OPTIONS } from "@/components/templates";
+import { getRegistryTemplate } from "@/components/templates";
+import type { TemplateStyle } from "@/types/invitation";
 
 // ─── Types ───────────────────────────────────────────────────
-type TemplateStyle = "classic" | "modern" | "minimal" | "romantic" | "rustic" | "luxury" | "classic-elegant" | "luxury-dark" | "garden-floral" | "modern-minimal" | "luxury-green";
 
 interface InvitationData {
   couple: { brideName: string; groomName: string; hashtag: string; message: string };
@@ -39,14 +39,10 @@ interface InvitationData {
   seo: { title: string; description: string; ogImage: string };
 }
 
-const templateOptions: { id: TemplateStyle; label: string; desc: string }[] = [
-  { id: "classic", label: "Cổ điển", desc: "Ảnh hero toàn trang, bố cục dọc truyền thống" },
-  { id: "modern", label: "Hiện đại", desc: "Chia đôi ngang, typography lớn, tối giản" },
-  { id: "minimal", label: "Tối giản", desc: "Nền trắng, chữ làm trung tâm, thanh lịch" },
-  { id: "romantic", label: "Lãng mạn", desc: "Viền hoa mềm mại, tông pastel ấm áp" },
-  { id: "rustic", label: "Mộc mạc", desc: "Phong cách rustic, chất liệu tự nhiên, ấm cúng" },
-  { id: "luxury", label: "Sang trọng", desc: "Viền vàng gold, nền tối, đẳng cấp cao" },
-  ...NEW_TEMPLATE_OPTIONS,
+const VALID_TEMPLATES: TemplateStyle[] = [
+  "classic", "modern", "minimal", "romantic", "rustic", "luxury",
+  "classic-elegant", "luxury-dark", "garden-floral", "modern-minimal", "luxury-green",
+  "royal-emerald", "red-dragon-envelope",
 ];
 
 const defaultData: InvitationData = {
@@ -75,7 +71,7 @@ const editGroups = [
   { icon: MapPin, label: "Địa điểm", id: "map" },
   { icon: Users, label: "RSVP", id: "rsvp" },
   { icon: MessageSquare, label: "Lời chúc", id: "wishes" },
-  { icon: Palette, label: "Giao diện", id: "theme" },
+  { icon: Palette, label: "Phong cách", id: "style" },
   { icon: Type, label: "Font chữ", id: "fonts" },
   { icon: Music, label: "Nhạc nền", id: "music" },
   { icon: Globe, label: "SEO", id: "seo" },
@@ -223,20 +219,9 @@ function WishesForm({ data, onChange }: { data: InvitationData["wishes"]; onChan
   );
 }
 
-function ThemeForm({ data, onChange }: { data: InvitationData["theme"]; onChange: (v: InvitationData["theme"]) => void }) {
+function StyleForm({ data, onChange }: { data: InvitationData["theme"]; onChange: (v: InvitationData["theme"]) => void }) {
   return (
     <div className="space-y-6">
-      <FieldGroup label="Mẫu thiệp">
-        <div className="space-y-2">
-          {templateOptions.map(t => (
-            <button key={t.id} onClick={() => onChange({ ...data, template: t.id })}
-              className={`w-full text-left rounded-xl p-4 border-2 transition-all duration-200 ${data.template === t.id ? "border-champagne bg-champagne/10 shadow-[var(--shadow-soft)]" : "border-border/30 hover:border-champagne/40 bg-secondary/20"}`}>
-              <span className="font-body text-sm font-medium block">{t.label}</span>
-              <span className="font-body text-xs text-muted-foreground">{t.desc}</span>
-            </button>
-          ))}
-        </div>
-      </FieldGroup>
       <FieldGroup label="Bảng màu">
         <div className="grid grid-cols-2 gap-3">
           {colorSchemes.map(cs => (
@@ -621,6 +606,7 @@ export function isInvitationPublished(): boolean {
 
 const BuilderPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useAuth();
   const paymentHook = usePayment();
   const [activeGroup, setActiveGroup] = useState("couple");
@@ -632,11 +618,25 @@ const BuilderPage = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [invitationId] = useState(() => crypto.randomUUID());
 
+  // Read template from URL query param and redirect if missing
   useEffect(() => {
+    const templateParam = searchParams.get("template");
+    if (!templateParam || !VALID_TEMPLATES.includes(templateParam as TemplateStyle)) {
+      toast.info("Vui lòng chọn mẫu thiệp trước", {
+        description: "Hãy chọn một mẫu thiệp từ danh sách để bắt đầu chỉnh sửa.",
+      });
+      navigate("/templates", { replace: true });
+      return;
+    }
+    // Apply template from URL, then overlay any saved data
     const saved = getSavedInvitation();
-    if (saved) setData(saved);
+    if (saved) {
+      setData({ ...saved, theme: { ...saved.theme, template: templateParam as TemplateStyle } });
+    } else {
+      setData(prev => ({ ...prev, theme: { ...prev.theme, template: templateParam as TemplateStyle } }));
+    }
     setPublished(isInvitationPublished());
-  }, []);
+  }, [searchParams, navigate]);
 
   // Watch payment success
   useEffect(() => {
@@ -725,7 +725,7 @@ const BuilderPage = () => {
       case "map": return <MapForm data={data.map} onChange={v => updateField("map", v)} />;
       case "rsvp": return <RsvpForm data={data.rsvp} onChange={v => updateField("rsvp", v)} />;
       case "wishes": return <WishesForm data={data.wishes} onChange={v => updateField("wishes", v)} />;
-      case "theme": return <ThemeForm data={data.theme} onChange={v => updateField("theme", v)} />;
+      case "style": return <StyleForm data={data.theme} onChange={v => updateField("theme", v)} />;
       case "fonts": return <FontsForm data={data.fonts} onChange={v => updateField("fonts", v)} />;
       case "music": return <MusicForm data={data.music} onChange={v => updateField("music", v)} />;
       case "seo": return <SeoForm data={data.seo} onChange={v => updateField("seo", v)} />;
